@@ -1,0 +1,34 @@
+name: Compilar mod 2.4
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Bajar el repo
+        uses: actions/checkout@v4
+
+      - name: Instalar .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Revisar que esten los DLL del juego en la raiz
+        run: |
+          for f in Engine24.dll EntitySystem24.dll Survivalcraft24.dll; do
+            if [ ! -f "$f" ]; then echo "::error::Falta $f en la raiz del repo"; exit 1; fi
+          done
+
+      - name: Compilar (deja Indigena24.scmod en la raiz)
+        run: dotnet build IndigenaMod.csproj -c Release
+
+      - name: Subir el .scmod
+        uses: actions/upload-artifact@v4
+        with:
+          name: Indigena24-scmod
+          path: Indigena24.scmod
+          if-no-files-found: error
