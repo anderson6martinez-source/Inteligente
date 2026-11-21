@@ -63,6 +63,7 @@ namespace Game
         private ComponentCreature m_componentCreature;
         private ComponentMiner m_componentMiner;
         private ComponentChaseBehavior m_componentChase;   // opcional
+        private ComponentPathfinding m_componentPathfinding;
 
         private readonly int[] m_slotValues = new int[SlotsTotal];
         private readonly int[] m_slotCounts = new int[SlotsTotal];
@@ -230,6 +231,7 @@ namespace Game
             m_componentMiner = Entity.FindComponent<ComponentMiner>(true);
             m_componentChase = Entity.FindComponent<ComponentChaseBehavior>(false);
             m_model = m_componentCreature.ComponentCreatureModel;
+            m_componentPathfinding = Entity.FindComponent<ComponentPathfinding>(true);   // [API?]
 
             // Inventario guardado: "valor:cantidad,valor:cantidad,..." (10 entradas)
             string saved = valuesDictionary.GetValue<string>("Slots", "");   // [API?]
@@ -379,7 +381,8 @@ namespace Game
         private static ClothingData GetClothing(int value)
         {
             if (!IsClothing(value)) return null;
-            return ClothingBlock.GetClothingData(value);      // [API?]
+            ClothingBlock block = BlocksManager.Blocks[ClothingBlock.Index] as ClothingBlock;
+            return block != null ? block.GetClothingData(value) : null;
         }
 
         private void ArmorTick()
@@ -517,7 +520,7 @@ namespace Game
             m_importance = (target == null) ? 8f : 0f;
             if (IsActive && target == null)
             {
-                m_componentCreature.ComponentPathfinding.SetDestination(     // [API?]
+                m_componentPathfinding.SetDestination(     // [API?]
                     nearest.Position, 0.9f, 1.0f, 0, false, true, false, null);
             }
         }
@@ -539,7 +542,7 @@ namespace Game
         private void StuckTick(float dt)
         {
             ComponentBody body = m_componentCreature.ComponentBody;
-            Vector3? dest = m_componentCreature.ComponentPathfinding.Destination;      // [API?]
+            Vector3? dest = m_componentPathfinding.Destination;      // [API?]
             bool wantsToMove = dest.HasValue && Vector3.Distance(body.Position, dest.Value) > 1.8f;
 
             Vector3 v = body.Velocity;

@@ -43,7 +43,7 @@ namespace Game
                 SpawnFunction = delegate (SubsystemCreatureSpawn.CreatureType creatureType, Point3 point)
                 {
                     return subsystemCreatureSpawn.SpawnCreatures(
-                        creatureType, TemplateName, point, s_random.Int(GroupMin, GroupMax));
+                        creatureType, TemplateName, point, s_random.Int(GroupMin, GroupMax)).Count;   // el delegate devuelve cuantos salieron
                 }
             });
         }
