@@ -1,0 +1,11 @@
+{
+  "Name": "Indigena Inteligente 2.4",
+  "Version": "1.0.0",
+  "ApiVersion": "1.8",
+  "Description": "Indigena inteligente: 10 slots, recolecta items, abre puertas, lanza y usa armas, se pone armaduras, rompe bloques muy lento.",
+  "ScVersion": "2.4",
+  "Link": "",
+  "Author": "",
+  "PackageName": "Indigena24",
+  "Dependencies": []
+}

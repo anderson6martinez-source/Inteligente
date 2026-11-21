@@ -1,0 +1,66 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>IndigenaMod</AssemblyName>
+    <RootNamespace>Game</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <NoWarn>$(NoWarn);MSB3270</NoWarn>
+  </PropertyGroup>
+
+  <!-- TODO en la RAIZ: se compilan todos los .cs que esten junto a este csproj -->
+  <ItemGroup>
+    <Compile Include="*.cs" />
+  </ItemGroup>
+
+  <!-- DLL del juego 2.4: en la RAIZ (si no estan, prueba en lib/ y despues en Lib/) -->
+  <ItemGroup>
+    <Reference Include="Engine24.dll" Condition="Exists('Engine24.dll')"><Private>false</Private></Reference>
+    <Reference Include="EntitySystem24.dll" Condition="Exists('EntitySystem24.dll')"><Private>false</Private></Reference>
+    <Reference Include="Survivalcraft24.dll" Condition="Exists('Survivalcraft24.dll')"><Private>false</Private></Reference>
+    <Reference Include="lib/Engine24.dll" Condition="!Exists('Engine24.dll') And Exists('lib/Engine24.dll')"><Private>false</Private></Reference>
+    <Reference Include="lib/EntitySystem24.dll" Condition="!Exists('EntitySystem24.dll') And Exists('lib/EntitySystem24.dll')"><Private>false</Private></Reference>
+    <Reference Include="lib/Survivalcraft24.dll" Condition="!Exists('Survivalcraft24.dll') And Exists('lib/Survivalcraft24.dll')"><Private>false</Private></Reference>
+    <Reference Include="Lib/Engine24.dll" Condition="!Exists('Engine24.dll') And !Exists('lib/Engine24.dll') And Exists('Lib/Engine24.dll')"><Private>false</Private></Reference>
+    <Reference Include="Lib/EntitySystem24.dll" Condition="!Exists('EntitySystem24.dll') And !Exists('lib/EntitySystem24.dll') And Exists('Lib/EntitySystem24.dll')"><Private>false</Private></Reference>
+    <Reference Include="Lib/Survivalcraft24.dll" Condition="!Exists('Survivalcraft24.dll') And !Exists('lib/Survivalcraft24.dll') And Exists('Lib/Survivalcraft24.dll')"><Private>false</Private></Reference>
+  </ItemGroup>
+
+  <!-- Despues de compilar: deja Indigena24.scmod en la RAIZ con cada archivo acomodado en su carpeta -->
+  <Target Name="EmpaquetarMod" AfterTargets="Build">
+    <PropertyGroup>
+      <StageDir>$(MSBuildProjectDirectory)/obj/stage/</StageDir>
+      <ScmodPath>$(MSBuildProjectDirectory)/Indigena24.scmod</ScmodPath>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ModRaiz Include="modinfo.json" />
+      <ModRaiz Include="*.xdb" />
+      <ModModelos Include="*.dae" />
+      <!-- Indigena*.png = skins de criaturas; cualquier otro .png = texturas de items -->
+      <ModCriaturas Include="Indigena*.png" />
+      <ModItems Include="*.png" Exclude="Indigena*.png" />
+      <ModAudio Include="*.wav" />
+    </ItemGroup>
+
+    <RemoveDir Directories="$(StageDir)" />
+    <MakeDir Directories="$(StageDir)" />
+    <Copy SourceFiles="@(ModRaiz)"      DestinationFolder="$(StageDir)" />
+    <Copy SourceFiles="@(ModModelos)"   DestinationFolder="$(StageDir)Models/" />
+    <Copy SourceFiles="@(ModCriaturas)" DestinationFolder="$(StageDir)Textures/Creatures/" />
+    <Copy SourceFiles="@(ModItems)"     DestinationFolder="$(StageDir)Textures/Items/" />
+    <Copy SourceFiles="@(ModAudio)"     DestinationFolder="$(StageDir)Audio/Creatures/" />
+    <Copy SourceFiles="$(TargetPath)"   DestinationFolder="$(StageDir)" />
+
+    <Delete Files="$(ScmodPath)" />
+    <ZipDirectory SourceDirectory="$(StageDir)" DestinationFile="$(ScmodPath)" />
+    <Message Importance="high" Text="Mod listo: $(ScmodPath)" />
+  </Target>
+
+</Project>

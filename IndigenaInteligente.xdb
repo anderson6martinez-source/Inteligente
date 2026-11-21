@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Mod>
+  <Folder Name="IndigenaInteligenteFolder" Guid="dfbcf672-147e-42c9-ac03-e6d73a0fa17a">
+    <ComponentTemplate Name="IndigenaInteligente" Guid="948c281f-cf5b-401e-9a4e-3a7566c71a73" InheritanceParent="b05700ed-7e4e-4679-98f5-b597f421496b">
+      <Parameter Name="Class" Guid="5bd14167-3896-4908-b304-49ea8b01a0ee" Value="Game.ComponentIndigenaInteligente" Type="string" />
+    </ComponentTemplate>
+    <EntityTemplate Name="IndigenaInteligente" Guid="5ae0e563-9c37-4541-9105-042a9e183fdc" InheritanceParent="e4275171-a39f-413f-8888-4c472868364d">
+    <MemberComponentTemplate Name="Creature" Guid="2d5f0dee-c639-427a-aa8a-4cb6c8f906f9">
+      <Parameter Name="Description" Guid="fc0984ed-e6fc-4b0d-8fc7-014f0e7ac01d" Value="Un indigena inteligente: recoge todo lo que encuentra, abre puertas, lanza lo lanzable, usa armas y se pone armaduras." Type="string" />
+      <Parameter Name="Category" Guid="82a5d847-1d87-4719-a19a-0478bf7e40b7" Value="LandOther" Type="Game.CreatureCategory" />
+      <Parameter Name="DisplayName" Guid="a1a798d8-752a-429f-9022-3ca25ca3f814" Value="Indigena inteligente" Type="string" />
+      <Parameter Name="KillVerbs" Guid="512218d8-92aa-41e1-b007-506377619df6" Value="Matado" Type="string" />
+    </MemberComponentTemplate>
+    <MemberComponentTemplate Name="Body" Guid="77b8e87f-bbeb-45f2-84a0-d368c5d8edef">
+      <Parameter Name="BoxSize" Guid="34b5207f-3db7-4a97-9210-7ef8b77615a4" Value="0.6,1.8,0.6" Type="Vector3" />
+      <Parameter Name="Mass" Guid="11be3262-17e1-4992-941c-035bf97097bd" Value="70" Type="float" />
+    </MemberComponentTemplate>
+    <MemberComponentTemplate Name="CreatureSounds" Guid="ede74b57-8c7e-418b-85ff-e1299959c31b">
+      <Parameter Name="PainSound" Guid="f4cdfd9b-7b70-4e43-b30e-5e938a584936" Value="Audio/Creatures/MalePain" Type="string" />
+    </MemberComponentTemplate>
+    <MemberComponentTemplate Name="Loot" Guid="cd7ab205-585b-46dc-8161-320dbf29e0c9">
+      <ParameterSet Name="Loot" Guid="d228863d-de24-4c27-b3a6-ac638e8243dd">
+      <Parameter Name="1" Guid="1f6908b6-ff76-4829-b083-b930ed9693bf" Value="RawMeatBlock;1;1" Type="string" />
+      <Parameter Name="2" Guid="77f5b760-6078-4bc5-a225-b4ddce597ab7" Value="LeatherBlock;2;2" Type="string" />
+      <Parameter Name="3" Guid="9495d826-e4a1-4ba6-bbdd-fb4c29883c2a" Value="StringBlock;1;1;0.7" Type="string" />
+      </ParameterSet>
+    </MemberComponentTemplate>
+    <MemberComponentTemplate Name="Health" Guid="e419330a-072f-4d06-a64c-556771d1b32a">
+      <Parameter Name="AttackResilience" Guid="a9171fa1-1146-41ad-b596-01bb5125e1e1" Value="18" Type="float" />
+      <Parameter Name="FallResilience" Guid="c5ac86db-8d66-434d-9b45-745914a39b03" Value="15" Type="float" />
+      <Parameter Name="FireResilience" Guid="a0b8fb40-232e-498d-8f09-82c97bbbf29d" Value="4" Type="float" />
+    </MemberComponentTemplate>
+    <MemberComponentTemplate Name="HumanModel" Guid="4b99ca49-d9d4-45d1-856f-9269102b1f5d" InheritanceParent="0566662e-bb24-45f9-84d8-f3c1e5d083df">
+      <Parameter Name="WalkLegsAngle" Guid="2b6c8c7b-c31f-4d27-bca5-72f9492d6e8c" Value="0.35" Type="float" />
+      <Parameter Name="ModelName" Guid="e0ae35c4-3a50-4f9c-be05-bd2184f7313d" Value="Models/IndigenaHumano" Type="string" />
+      <Parameter Name="TextureOverride" Guid="4bc2d3f2-255a-47f4-a69b-9fa8619a7c2d" Value="Textures/Creatures/IndigenaInteligente" Type="string" />
+      <Parameter Name="WalkAnimationSpeed" Guid="1e37aaa0-5559-48b1-86be-2084a12efc18" Value="0.8" Type="float" />
+    </MemberComponentTemplate>
+    <MemberComponentTemplate Name="Inventory" Guid="07e09208-d6b2-4159-92d6-cafa484bc814" InheritanceParent="de5c0cb9-42d1-4ee4-b58f-bb9bb668b890" />
+    <MemberComponentTemplate Name="Miner" Guid="648fe829-a06e-489f-a127-7e1cd55f6d10" InheritanceParent="8acca888-ba39-464f-bcf5-6ae15e448c62">
+      <Parameter Name="AttackPower" Guid="596683d7-cc44-4b3c-86d5-295ebb865ad6" Value="1" Type="float" />
+    </MemberComponentTemplate>
+    <MemberComponentTemplate Name="WalkAroundBehavior" Guid="c36a617f-855e-40a5-b3b1-cb7c4c30bb6c" InheritanceParent="aebb86ce-4ee6-4ca0-850d-cd60051e1d71" />
+    <MemberComponentTemplate Name="ChaseBehavior" Guid="35b556a3-5254-4bd8-bd79-a60c4264f740" InheritanceParent="31894441-d90a-4549-9264-db9dbe20e234">
+      <Parameter Name="DayChaseRange" Guid="1872b0be-f238-4467-8e9f-6edac621b4f5" Value="25" Type="float" />
+      <Parameter Name="NightChaseRange" Guid="2319aef1-f45e-47bf-9938-5465649438de" Value="25" Type="float" />
+      <Parameter Name="ChaseOnTouchProbability" Guid="6ac25b5d-57cb-4129-9ff9-03867c6e0f72" Value="0" Type="float" />
+      <Parameter Name="ChaseNonPlayerProbability" Guid="8cbc34d4-8d97-45e9-84c0-3278789bbfb4" Value="1" Type="float" />
+      <Parameter Name="AutoChaseMask" Guid="edd3fdba-4781-4af9-81fe-ce96984d5650" Value="Bird" Type="Game.CreatureCategory" />
+    </MemberComponentTemplate>
+    <MemberComponentTemplate Name="Locomotion" Guid="b2733428-940e-4d3e-b2c9-904a521f4230">
+      <Parameter Name="InAirWalkFactor" Guid="d5efd0aa-e7bd-4102-bcdb-820ca790bb2b" Value="1" Type="float" />
+      <Parameter Name="WalkSpeed" Guid="3ce8339d-aec8-475f-8a31-9994ed59089f" Value="3.3333" Type="float" />
+      <Parameter Name="FlySpeed" Guid="4771f268-c52a-4fa8-adf8-0ba9907615a8" Value="0" Type="float" />
+      <Parameter Name="TurnSpeed" Guid="442f7848-e18a-4895-9a2e-29f06d8161c4" Value="3" Type="float" />
+      <Parameter Name="JumpSpeed" Guid="6a670885-4e68-48df-aa6d-6c4b3874b611" Value="4.7" Type="float" />
+    </MemberComponentTemplate>
+    <MemberComponentTemplate Name="AutoJump" Guid="7f6016e2-dbac-4a92-bae3-7a7d9b64f72f">
+      <Parameter Name="JumpStrength" Guid="8c9a8215-bc0e-4994-9361-2b234a6aa2f6" Value="1" Type="float" />
+    </MemberComponentTemplate>
+    <MemberComponentTemplate Name="FindPlayerBehavior" Guid="78d0cd63-6055-431f-a7fe-4193a8b56a01" InheritanceParent="44c9a961-258c-4eb3-81d1-d3ae249ae031" />
+    <MemberComponentTemplate Name="IndigenaInteligente" Guid="cb25e5b1-a528-4169-b41b-a5044fb04a02" InheritanceParent="948c281f-cf5b-401e-9a4e-3a7566c71a73" />
+    <ParameterSet Name="CreatureEggData" Guid="8fbf7933-169a-4776-9794-f17e78c78561">
+      <Parameter Name="TextureSlot" Guid="730cbb9b-c288-4cb0-a54f-2230b7757387" Value="39" Type="int" />
+      <Parameter Name="Color" Guid="3a35ae73-561f-45da-af55-551f70798b49" Value="200,150,100" Type="Color" />
+      <Parameter Name="SwapUV" Guid="381c89d0-faef-48f4-9166-272074bb5b65" Value="False" Type="bool" />
+      <Parameter Name="DisplayName" Guid="33754de7-95f7-426e-b263-fd90e4258cd9" Value="Indigena inteligente" Type="string" />
+      <Parameter Name="EggTypeIndex" Guid="55d8da1e-f1cb-4d1e-9769-da1c3ade4a2b" Value="216" Type="int" />
+      <Parameter Name="ShowEgg" Guid="7bdddf2f-8a50-4633-bb12-f58c206c608c" Value="True" Type="bool" />
+    </ParameterSet>
+    </EntityTemplate>
+  </Folder>
+</Mod>
